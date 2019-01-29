@@ -1,13 +1,17 @@
 <template>
   <section class="container">
     <div>
-      <b-field>
-        <b-input v-model="user_input" icon="magnify"></b-input>
-        <p class="control">
-          <button class="button is-primary" v-on:click="qiitaSearch">Search</button>
-        </p>
-      </b-field>
 
+      <form onsubmit="return false;">
+        <b-field>
+          <b-input v-model="user_input" icon="magnify" placeholder="e.g. nuxt.js"></b-input>
+          <p class="control">
+            <button class="button is-primary" v-on:click="qiitaSearch">Search</button>
+          </p>
+        </b-field>
+      </form>
+
+      <b-loading :is-full-page="true" :active.sync="isLoading" :can-cancel="true"></b-loading>
       <h3>{{ user_input }}のタグが付けられた投稿の一覧</h3>
       <ul>
         <li v-for="item in items" :key="item.id">
@@ -28,13 +32,13 @@
             <div class="card-content">
               <div class="content">
                 <div>{{ item.body.slice(0, 130) }}....</div>
-                <p><a :href="item.url">{{ item.url }}</a></p>
+                <p><a :href="item.url" target="_blank">{{ item.url }}</a></p>
               </div>
             </div>
           </div>
-
         </li>
       </ul>
+
     </div>
   </section>
 </template>
@@ -44,7 +48,7 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      user_input: "nuxt.js",
+      user_input: "",
     }
   },
   async asyncData({ store }) {
@@ -54,7 +58,10 @@ export default {
     await store.dispatch('fetchItems', 'nuxt.js');
   },
   computed: {
-    ...mapGetters(['items'])
+    ...mapGetters(['items']),
+    isLoading() {
+      return this.$store.getters.isLoading
+    }
   },
   methods: {
     qiitaSearch() {
@@ -79,7 +86,10 @@ h3 {
 .card {
   margin-bottom: 16px;
   .card-header {
-    margin-left: 8px;
+    margin-left: 16px;
+    h4 {
+      margin-top: 8px;
+    }
   }
 }
 
