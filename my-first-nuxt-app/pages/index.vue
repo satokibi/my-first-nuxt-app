@@ -1,26 +1,38 @@
 <template>
   <section class="container">
     <div>
-      <label>input</label>
-      <input type="text" v-model="user_input">
-        <b-field label="Name">
-            <b-input ></b-input>
-        </b-field>
-      <button v-on:click="qiitaSearch">search</button>
+      <b-field>
+        <b-input v-model="user_input" icon="magnify"></b-input>
+        <p class="control">
+          <button class="button is-primary" v-on:click="qiitaSearch">Search</button>
+        </p>
+      </b-field>
+
       <h3>{{ user_input }}のタグが付けられた投稿の一覧</h3>
       <ul>
         <li v-for="item in items" :key="item.id">
-          <h4>
-            <span>{{ item.title }}</span>
-            <small>
-              <span>by </span>
-              <nuxt-link :to="`/users/${item.user.id}`">
-                {{ item.user.id }}
-              </nuxt-link>
-              </small>
-          </h4>
-          <div>{{ item.body.slice(0, 130) }}....</div>
-          <p><a :href="item.url">{{ item.url }}</a></p>
+          <div class="card">
+
+            <div class="card-header">
+              <h4>
+                <span>{{ item.title }}</span>
+                <small>
+                  <span>by </span>
+                  <nuxt-link :to="`/users/${item.user.id}`">
+                    {{ item.user.id }}
+                  </nuxt-link>
+                </small>
+              </h4>
+            </div>
+
+            <div class="card-content">
+              <div class="content">
+                <div>{{ item.body.slice(0, 130) }}....</div>
+                <p><a :href="item.url">{{ item.url }}</a></p>
+              </div>
+            </div>
+          </div>
+
         </li>
       </ul>
     </div>
@@ -32,7 +44,7 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      user_input: "",
+      user_input: "nuxt.js",
     }
   },
   async asyncData({ store }) {
@@ -52,7 +64,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .container {
   min-height: 100vh;
   padding: 16px;
@@ -64,12 +76,11 @@ h3 {
   border-bottom: solid 1px #e5e5e5;
 }
 
-li + li {
-  margin: 16px 0;
-}
-
-p {
-  margin: 8px 0;
+.card {
+  margin-bottom: 16px;
+  .card-header {
+    margin-left: 8px;
+  }
 }
 
 </style>
