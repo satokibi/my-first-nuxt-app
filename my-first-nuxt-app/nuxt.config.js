@@ -18,10 +18,15 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
+  css: [
+    '~/assets/css/buefy.scss',
+  ],
   modules: [
     '@nuxtjs/axios',
     'nuxt-buefy',
-    ['nuxt-buefy', {}]
+    ['nuxt-buefy', {
+      css: false,
+    }]
   ],
   axios: {
 

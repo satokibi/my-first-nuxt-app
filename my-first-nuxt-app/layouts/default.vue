@@ -1,6 +1,15 @@
 <template>
-  <div class="container">
-    <nuxt/>
+  <div>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <nuxt-link to="/" class="navbar-item">
+          <h1>Qiita tag viewer</h1>
+        </nuxt-link>
+      </div>
+    </nav>
+    <div class="container">
+      <nuxt/>
+    </div>
   </div>
 </template>
 
