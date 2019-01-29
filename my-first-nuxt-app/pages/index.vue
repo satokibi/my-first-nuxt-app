@@ -1,7 +1,13 @@
 <template>
   <section class="container">
     <div>
-      <h3>Nuxt.jsのタグが付けられた投稿の一覧</h3>
+      <label>input</label>
+      <input type="text" v-model="user_input">
+        <b-field label="Name">
+            <b-input ></b-input>
+        </b-field>
+      <button v-on:click="qiitaSearch">search</button>
+      <h3>{{ user_input }}のタグが付けられた投稿の一覧</h3>
       <ul>
         <li v-for="item in items" :key="item.id">
           <h4>
@@ -24,14 +30,24 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
+  data() {
+    return {
+      user_input: "",
+    }
+  },
   async asyncData({ store }) {
     if (store.getters['items'].length) {
       return;
     }
-    await store.dispatch('fetchItems');
+    await store.dispatch('fetchItems', 'nuxt.js');
   },
   computed: {
     ...mapGetters(['items'])
+  },
+  methods: {
+    qiitaSearch() {
+      this.$store.dispatch('fetchItems', this.user_input);
+    }
   }
 };
 </script>

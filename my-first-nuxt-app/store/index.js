@@ -23,9 +23,9 @@ const store = {
     }
   },
   actions: {
-    async fetchItems({ commit }) {
+    async fetchItems({ commit }, user_input) {
       const items = await this.$axios.$get(
-        'https://qiita.com/api/v2/items?query=tag:nuxt.js'
+        `https://qiita.com/api/v2/items?query=tag:${ user_input }`
       );
       commit('setItems', { items });
     },
