@@ -13,8 +13,9 @@ $ docker-compose exec web /bin/ash
 ```
 
 ```terminal:コンテナ内
-/app/vue-project # cd my-first-nuxt-app
-/app/vue-project # npm run dev
+/app # cd my-first-nuxt-app
+/app/my-first-nuxt-app # npm install
+/app/my-first-nuxt-app # npm run dev
 ```
 
 http://localhost:3002
